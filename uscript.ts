@@ -2,6 +2,10 @@
 
 import "@johnlindquist/kit"
 
+// TODO: 
+//  - Git Push 
+//  - Complex Target Directory
+//  - Change script name
 const HOME_PATH = (await env("KIT")).split("/.kit").join("")
 
 async function copyFilesToDirectory(files: string[], dir: string) {
