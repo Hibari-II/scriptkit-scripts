@@ -11,14 +11,26 @@
 import "@johnlindquist/kit"
 import { generateMultiple } from "generate-password"
 
-const PW_COUNT = 5;
+const PW_OPTIONS_COUNT = 5;
+const PW_SECTIONS = 3;
+const PW_SECTION_LENGTH = 6;
 
-const password = await arg("Select a password",
-    generateMultiple(PW_COUNT, {
-        length: 12,
-        symbols: true,
-        uppercase: false
-    })
-);
+function generatePasswordOptions(): string[] {
+    const options: string[] = [];
+    for (let i = 0; i < PW_OPTIONS_COUNT; i++) {
+        let password = generateMultiple(PW_SECTIONS, {
+            length: PW_SECTION_LENGTH,
+            numbers: true,
+            symbols: false,
+            uppercase: true
+        }).join("-");
 
-copy(password);
+        options.push(password);
+    }
+    return options;
+}
+
+const generatedPasswords: string[] = generatePasswordOptions();
+const selectedPassword: string = await arg("Select a password", generatedPasswords);
+
+copy(selectedPassword);

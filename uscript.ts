@@ -6,6 +6,8 @@ import "@johnlindquist/kit"
 //  - Git Push 
 //  - Complex Target Directory
 //  - Change script name
+//  - Scripts abgleichen
+//  - Subfolder Mitnahme
 const HOME_PATH = (await env("KIT")).split("/.kit").join("")
 
 async function copyFilesToDirectory(files: string[], dir: string) {
@@ -16,9 +18,9 @@ async function copyFilesToDirectory(files: string[], dir: string) {
 
 const targetPath = await selectFolder();
 
-const scriptsPath = await kenvPath("scripts");
+const scriptsPath = await kenvPath("scripts"); // Recursive iteration
 
-const files = await readdir(scriptsPath);
+const files = await readdir(scriptsPath); 
 const filePaths = files.map(file => `${scriptsPath}/${file}`)
 
 copyFilesToDirectory(filePaths, targetPath)

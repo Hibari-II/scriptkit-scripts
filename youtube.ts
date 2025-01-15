@@ -11,20 +11,12 @@
 // Author: Hoa Binh Dinh
 
 import "@johnlindquist/kit"
+import { getSearchTermFrom } from "./utils/search-helper";
 
 const SCRIPT_KEYWORD = "yt";
-const YOUTUBE_URL = `https://www.youtube.com/results?search_query=`;
-
-function getSearchTermFrom(searchInput: string) {
-    var args = searchInput.toLowerCase().split(" ");
-    var hasKeyword = args.at(0).toLowerCase() === SCRIPT_KEYWORD;
-
-    return hasKeyword 
-           ? args.slice(1, args.length).join("+")
-           : searchInput;
-}
+const BASE_URL = `https://www.youtube.com/results?search_query=`;
 
 const searchInputs = await arg("What do you want to search");
-const searchUrl = YOUTUBE_URL + getSearchTermFrom(searchInputs);
+const searchUrl = BASE_URL + getSearchTermFrom(searchInputs, SCRIPT_KEYWORD);
 
 open(searchUrl);

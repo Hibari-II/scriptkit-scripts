@@ -6,25 +6,18 @@
 */
 
 // Name: Google
-// Description: Google Search
-// Keyword: g  
+// Description: Search at Google.com
 // Author: Hoa Binh Dinh
+// Keyword: g  
 
 import "@johnlindquist/kit"
+import { getSearchTermFrom } from "./utils/search-helper";
 
 const SCRIPT_KEYWORD = "g";
-const GOOGLE_URL = `https://www.google.com/search?q=`;
-
-function getSearchTermFrom(searchInput: string) {
-    var args = searchInput.toLowerCase().split(" ");
-    var hasKeyword = args.at(0).toLowerCase() === SCRIPT_KEYWORD;
-
-    return hasKeyword 
-           ? args.slice(1, args.length).join("+")
-           : searchInput;
-}
+const BASE_URL = `https://www.google.com/search?q=`;
 
 const searchInputs = await arg("What do you want to search");
-const searchUrl = GOOGLE_URL + getSearchTermFrom(searchInputs);
+
+const searchUrl = BASE_URL + getSearchTermFrom(searchInputs, SCRIPT_KEYWORD);
 
 open(searchUrl);
